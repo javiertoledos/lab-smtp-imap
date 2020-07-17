@@ -146,9 +146,11 @@ docker-compose up
   `[PRC] Lab2 <numero de carné>` y como cuerpo de mensaje contesta lo siguiente:
     - las ventajas y desventajas entre utilizar POP3 e IMAP como protocolos para
     obtener correos de un buzón de mensajería.
-    - La diferencia entre utilizar STARTTLS y SSL/TLS implícito en conexiones de
-    SMTP o IMAP.
+    - Explica brevemente que es y como funciona SASL.
     - La diferencia entre los términos MUA, MTA y MDA.
+  
+    **IMPORTANTE**: Asegurate de mandar únicamente 1 correo.
+
 3. Crea un archivo zip con el nombre `lab2-<numero de carne>.zip`. Es requerido
   respetar este nombre ya que se evaluará con una herramienta automática el
   laboratorio y en caso de no seguir instrucciones, no se evaluará la respuesta.
