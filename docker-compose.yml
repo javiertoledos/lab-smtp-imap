@@ -1,0 +1,33 @@
+version: '3'
+#
+
+services:
+  mail:
+    image: tvial/docker-mailserver:stable
+    hostname: mail
+    domainname: smtplab.intra
+    container_name: mail
+    ports:
+      - "4465:465"
+      - "9993:993"
+    volumes:
+      - maildata:/var/mail
+      - mailstate:/var/mail-state
+      - maillogs:/var/log/mail
+      - ./config/:/tmp/docker-mailserver/
+    environment:
+      - ENABLE_SPAMASSASSIN=1
+      - SPAMASSASSIN_SPAM_TO_INBOX=1
+      - ONE_DIR=1
+      - SSL_TYPE=self-signed
+      - RELAY_HOST=smtp.mailtrap.io
+      - RELAY_PORT=2525
+    cap_add:
+      - SYS_PTRACE
+volumes:
+  maildata:
+    driver: local
+  mailstate:
+    driver: local
+  maillogs:
+    driver: local
