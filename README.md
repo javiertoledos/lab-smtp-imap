@@ -12,6 +12,9 @@ utilizando un servidor dentro de un contenedor de docker.
 
 ## Práctica
 
+**Descarga** el contenido de este [repositorio](https://github.com/javiertoledos/lab2-smtp-imap/archive/master.zip)
+para utilizarlo en los siguientes pasos.
+
 ### Instalando un cliente de correos: 
 
 Ve al sitio de [Thunderbird](https://www.thunderbird.net/es-ES/) y descarga el 
@@ -28,8 +31,9 @@ son válidos para entornos de producción. Se detallarán los pasos más adelant
 
 ### Levantando un servidor de correos
 
-El laboratorio utiliza una imagen de docker hecha por Thomas Vial. Los detalles
-de configuración de la imagen se pueden encontrar en su
+El [contenido del laboratorio](https://github.com/javiertoledos/lab2-smtp-imap/archive/master.zip)
+utiliza una imagen de docker hecha por Thomas Vial. Los detalles de 
+configuración de la imagen se pueden encontrar en su
 [repositorio](https://github.com/tomav/docker-mailserver).
 
 Describiendo brevemente las características que usaremos de dicha imagen
