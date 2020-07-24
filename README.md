@@ -153,8 +153,10 @@ docker-compose up
     ``` 
     y luego ejecútalo para ver las opciones disponibles.
 
-  Utiliza el usuario de ana o pablo para verificar que el correo que recién 
-  creaste funciona junto con su respectivo alias. 
+  Utiliza el usuario de Ana o Pablo para verificar que el correo que recién 
+  creaste funciona junto con su respectivo alias. Notarás que esta prueba no
+  llegó al servicio de mailtrap previamente configurado ya que al tratarse de
+  cuentas locales, no se utiliza el servicio de relay para reenviar el correo.
   
   Servicios como Zoho mail o G-Suite permiten la asignación de aliases a cuentas
   para tener un solo buzón que reciba correos de multiples direcciones. Una 
