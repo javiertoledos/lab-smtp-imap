@@ -8,6 +8,7 @@ utilizando un servidor dentro de un contenedor de docker.
 * docker 19 o superior
 * docker-compose 1.3 o superior
 * Mac OS/Linux/Windows con WSL2
+* curl para descarga opcional de archivos
 * Terminal bash o zsh
 
 ## Práctica
@@ -84,6 +85,9 @@ Este repositorio cuenta con la siguiente estructura:
 └── docker-compose.yml              
 ```
 
+Los archivos que estarás modificando serán los de extensión .cf dentro de la 
+carpeta config.
+
 Los certificados autofirmados deben manejarse con cuidado y la excepción para su
 uso debe ser removida al finalizar el laboratorio. Nunca se debe utilizar 
 certificados autofirmados en entornos de producción. 
@@ -110,24 +114,27 @@ docker-compose up
 
 ## Ejercicios
 
-1. El laboratorio se encuentra configurado con dos usuarios:
+1. El laboratorio se encuentra preconfigurado con dos usuarios para envío y 
+  descarga de correos por SMTP e IMAP:
     - User: `ana@smtplab.intra` Password: `testing`
     - User: `pablo@smtplab.intra` Password: `testing`
   
-    Configura el cliente de correos para que pueda conectarse con cualquiera de
-  estos dos usuarios y envía un correo de prueba. Recuerda que el host es tu 
-  propio equipo `localhost` con los puertos `4465` y `9993` expuestos para 
-  SMTP e IMAP respectivamente.
+    Configura el cliente de correos (Thunderbird) para que pueda conectarse con
+  cualquiera de estos dos usuarios y envía un correo de prueba al otro usuario
+  configurado. Recuerda que el host es tu propio equipo `localhost` con los 
+  puertos `4465` y `9993` expuestos para SMTP e IMAP respectivamente.
 
 2. Una vez que se probó que el envío local es exitoso, se puede configurar el 
   envío de correos a otros servidores. Debido a la configuración de prueba 
   utilizada, el envío o recepción de correos con otros servicios puede fallar ya
   que no cuenta con la configuración DNS y de seguridad necesarias. Una forma de
-  probar clientes o servicios SMTP es utilizando [mailtrap.io](https://mailtrap.io/)
+  probar clientes o servicios SMTP antes de colocarlos en un entorno de 
+  producción es utilizando [mailtrap.io](https://mailtrap.io/).
     - Crea una cuenta y crea un buzón, luego finaliza la configuración de relay
     agregando la autenticación SASL (para smtp.mailtrap.io) para que los correos
     externos sean enviados a dicho servicio. En una configuración de producción,
-    esto podría hacerse a un servidor de RELAY de G-Suite.
+    esto podría hacerse a un servidor de RELAY de G-Suite para analisis de 
+    SPAM y antivirus.
     - Recuerda reiniciar el contenedor de docker para que tome la nueva 
     configuración. Envía un correo de prueba a `smtplab@somedomain.com`.  Si la 
     configuración es correcta, en el sitio de mailtrap.io debería aparecer de 
@@ -136,18 +143,33 @@ docker-compose up
     ![](images/mailtrap-example.png)
 
 3. Crea una nueva cuenta con tu nombre y apellido y añadele un alias de 
-  it@smtplab.intra y utiliza la cuenta de Ana o Pablo para probar dicho alias 
-  enviandole un correo. Servicios como Zoho mail o G-Suite permiten la 
-  asignación de aliases a cuentas  para tener un solo buzon que reciba correos 
-  de multiples direcciones.
+  it@smtplab.intra en el servidor de prueba. Lo puedes realizar editando 
+  los archivos de configuración de Postfix `config/postfix-accounts.cf` y
+  `config/postfix-virtual.cf` o utilizando la herramienta de configuración de
+  Thomas Vial que provee helpers para configurarlo por uno. Para esta segunda
+  opción descarga el archivo de setup como indica su repositorio:
+    ```
+    curl -o setup.sh https://raw.githubusercontent.com/tomav/docker-mailserver/master/setup.sh; chmod a+x ./setup.sh
+    ``` 
+    y luego ejecútalo para ver las opciones disponibles.
+
+  Utiliza el usuario de ana o pablo para verificar que el correo que recién 
+  creaste funciona junto con su respectivo alias. 
+  
+  Servicios como Zoho mail o G-Suite permiten la asignación de aliases a cuentas
+  para tener un solo buzón que reciba correos de multiples direcciones. Una 
+  configuración de producción de Postfix probablemente esté en conjunto de 
+  software que cree las cuentas como WHM/CPANEL o utilice una conexión de LDAP
+  para
 
 ## Entrega
 1. Configura el servidor de relay para usar las credenciales de mailtrap.io para
   evaluación en vez de tu cuenta personal. Estas estarán disponibles en la
-  plataforma de e-learning en la sección de apuntes de clase.
-2. Con el relay configurado, envía un correo electrónico desde la cuenta que
-  creaste con tu nombre a la dirección `evaluacion@ejemplo.com` con asunto 
-  `[PRC] Lab2 <numero de carné>` y como cuerpo de mensaje contesta lo siguiente:
+  plataforma GES en la sección de apuntes de clase.
+2. Con el relay configurado utilizando las credenciales de evaluación, envía un 
+   correo electrónico desde la cuenta que creaste con tu nombre a la dirección 
+   `evaluacion@ejemplo.com` con asunto `[PRC] Lab2 <numero de carné>` y como 
+   cuerpo de mensaje contesta lo siguiente:
     - las ventajas y desventajas entre utilizar POP3 e IMAP como protocolos para
     obtener correos de un buzón de mensajería.
     - Explica brevemente que es y como funciona SASL.
