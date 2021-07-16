@@ -1,4 +1,4 @@
-# Laboratorio 2 - SMTP
+# Laboratorio - SMTP
 
 El laboratorio consiste en realizar una configuración rápida de correo
 utilizando un servidor dentro de un contenedor de docker.
